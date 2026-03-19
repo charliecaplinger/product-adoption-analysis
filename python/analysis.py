@@ -2,14 +2,23 @@ import pandas as pd
 
 df = pd.read_csv("data/product_usage.csv")
 
+# Convert dates
+df["event_date"] = pd.to_datetime(df["event_date"])
+df["signup_date"] = pd.to_datetime(df["signup_date"])
+
 # Feature adoption
-adoption = df.groupby("feature_name")["user_id"].nunique()
+feature_adoption = df.groupby("feature_name")["user_id"].nunique()
+print("Feature Adoption:\n", feature_adoption)
 
-print("Feature Adoption:")
-print(adoption)
+# Daily active users (DAU)
+dau = df.groupby("event_date")["user_id"].nunique()
+print("\nDaily Active Users:\n", dau)
 
-# Daily active users
-daily_users = df.groupby("event_date")["user_id"].nunique()
+# Adoption by plan
+plan_adoption = df.groupby(["plan", "feature_name"])["user_id"].nunique().unstack()
+print("\nAdoption by Plan:\n", plan_adoption)
 
-print("\nDaily Active Users:")
-print(daily_users)
+# Retention (users active after signup)
+df["days_since_signup"] = (df["event_date"] - df["signup_date"]).dt.days
+retention = df[df["days_since_signup"] > 0]["user_id"].nunique()
+print("\nReturning Users:", retention)
