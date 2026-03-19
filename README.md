@@ -38,3 +38,17 @@ The dataset includes:
 - SQL aggregation and segmentation  
 - Python (Pandas) for data analysis  
 - Data visualization and dashboarding    
+
+## Retention & Churn Analysis
+
+Retention was calculated by tracking user activity over time relative to signup date.
+
+A cohort-based retention model was used to measure how many users returned after their initial interaction.
+
+### Key Insights
+
+- Retention declines over time, with the largest drop occurring shortly after signup  
+- A subset of users remains consistently active, indicating core engaged users  
+- Churn rate highlights the percentage of users who do not return after initial usage  
+
+These metrics are critical for understanding product engagement and long-term user value.
